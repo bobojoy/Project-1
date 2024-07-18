@@ -1,0 +1,17 @@
+{
+  "catImages": [
+    { "id": 1, "statusCode": 200, "image": "https://http.cat/200.jpg" },
+    { "id": 2, "statusCode": 404, "image": "https://http.cat/404.jpg" },
+    { "id": 3, "statusCode": 500, "image": "https://http.cat/500.jpg" },
+    { "id": 4, "statusCode": 403, "image": "https://http.cat/403.jpg" },
+    { "id": 5, "statusCode": 401, "image": "https://http.cat/401.jpg" },
+    { "id": 6, "statusCode": 302, "image": "https://http.cat/302.jpg" },
+    { "id": 7, "statusCode": 301, "image": "https://http.cat/301.jpg" },
+    { "id": 8, "statusCode": 307, "image": "https://http.cat/307.jpg" },
+    { "id": 9, "statusCode": 308, "image": "https://http.cat/308.jpg" },
+    { "id": 10, "statusCode": 400, "image": "https://http.cat/400.jpg" },
+    { "id": 11, "statusCode": 405, "image": "https://http.cat/405.jpg" },
+    { "id": 12, "statusCode": 408, "image": "https://http.cat/408.jpg" },
+    { "id": 13, "statusCode": 509, "image": "https://http.cat/509.jpg" }
+  ]
+}
