@@ -67,8 +67,10 @@ This project was contributed to by:
 
 - [Joy Wambui](https://github.com/bobojoy/)
 
-### Cat's Image Project Reference 
-``````https://github.com/bobojoy/Project-1`````
+
+## Support and contact details
+git@github.com:bobojoy
+
 ## License
 
 [![License: ICL](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
