@@ -1,5 +1,5 @@
 {
-  "catImages": [
+  "images": [
     { "id": 1, "statusCode": 200, "image": "https://http.cat/200.jpg" },
     { "id": 2, "statusCode": 404, "image": "https://http.cat/404.jpg" },
     { "id": 3, "statusCode": 500, "image": "https://http.cat/500.jpg" },
