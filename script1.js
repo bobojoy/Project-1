@@ -1,7 +1,8 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const apiUrl = "https://staff-backened-ten.vercel.app/images";
+const apiUrl = "http://localhost:3000/images";
 
+document.addEventListener("DOMContentLoaded", () => {
   const statusCodeInput = document.getElementById("status-code");
+  const generateCatBtn = document.getElementById("generate-cat-btn");
   const clearBtn = document.getElementById("clear-btn");
   const catImageContainer = document.getElementById("cat-image-container");
 
@@ -15,64 +16,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to fetch cat image data from the API
   function fetchCatImage(statusCode) {
-    fetch(`${apiUrl}/${statusCode}`)
+    fetch(apiUrl)
       .then((res) => {
         if (!res.ok) {
-          throw Error("Error fetching cat image");
+          throw new Error(`HTTP error! Status: ${res.status}`);
         }
         return res.json();
       })
       .then((data) => {
-        displayCatImage(data.imageUrl); // Assuming the response JSON has a property 'imageUrl'
+        const imageData = data.find((img) => img.statusCode === parseInt(statusCode));
+        if (imageData && imageData.image) {
+          displayCatImage(imageData.image);
+        } else {
+          throw new Error("No image found for the given status code");
+        }
       })
       .catch((error) => {
-        console.error(error);
+        console.log("Fetch error:", error);
         catImageContainer.innerHTML = "Error fetching cat image";
       });
   }
 
-  // Event listeners using forEach method
-  [
-    {
-      element: statusCodeInput,
-      event: "input",
-      handler: handleStatusCodeInput,
-    },
-    { element: clearBtn, event: "click", handler: handleClearButtonClick },
-    {
-      element: statusCodeInput,
-      event: "keypress",
-      handler: handleEnterKeyPress,
-    },
-  ].forEach(({ element, event, handler }) => {
-    element.addEventListener(event, handler);
-  });
-
-  // Callback functions for event listeners
-
-  function handleStatusCodeInput(event) {
-    const statusCode = event.target.value;
-    if (
-      statusCode.length > 0 &&
-      !isNaN(statusCode) &&
-      statusCode >= 200 &&
-      statusCode <= 599
-    ) {
+  // Event listener for generating cat image
+  generateCatBtn.addEventListener("click", () => {
+    const statusCode = statusCodeInput.value;
+    if (statusCode.length > 0 && !isNaN(statusCode) && statusCode >= 200 && statusCode <= 599) {
       fetchCatImage(statusCode);
     } else {
-      catImageContainer.innerHTML = "";
+      catImageContainer.innerHTML = "Please enter a valid status code between 200 and 599";
     }
-  }
+  });
 
-  function handleClearButtonClick() {
+  // Event listener for clearing input and image
+  clearBtn.addEventListener("click", () => {
     statusCodeInput.value = "";
     catImageContainer.innerHTML = "";
-  }
+  });
 
-  function handleEnterKeyPress(event) {
+  // Event listener for handling Enter key press
+  statusCodeInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
+      event.preventDefault();  // Prevent form submission
       const statusCode = statusCodeInput.value;
-      fetchCatImage(statusCode);
+      if (statusCode.length > 0 && !isNaN(statusCode) && statusCode >= 200 && statusCode <= 599) {
+        fetchCatImage(statusCode);
+      }
     }
-  }
+  });
 });
