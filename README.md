@@ -1,4 +1,4 @@
-# PHASE1 PROJECT
+# GENERATING CAT'S IMAGE PROJECT
 This project involves inputting statusCode to generate a cat's image.
 
 ## Objective:
