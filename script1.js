@@ -1,5 +1,6 @@
-const apiUrl = "http://localhost:3000/images";
+ const apiUrl = "http://localhost:3000/images";
 
+//  Event Listener for DOMContentLoaded
 document.addEventListener("DOMContentLoaded", () => {
   const statusCodeInput = document.getElementById("status-code");
   const generateCatBtn = document.getElementById("generate-cat-btn");
@@ -18,13 +19,16 @@ document.addEventListener("DOMContentLoaded", () => {
   function fetchCatImage(statusCode) {
     fetch(apiUrl)
       .then((res) => {
+        console.log(res);
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
         return res.json();
       })
       .then((data) => {
-        const imageData = data.find((img) => img.statusCode === parseInt(statusCode));
+        const imageData = data.find(
+          (img) => img.statusCode === parseInt(statusCode)
+        );
         if (imageData && imageData.image) {
           displayCatImage(imageData.image);
         } else {
@@ -40,10 +44,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // Event listener for generating cat image
   generateCatBtn.addEventListener("click", () => {
     const statusCode = statusCodeInput.value;
-    if (statusCode.length > 0 && !isNaN(statusCode) && statusCode >= 200 && statusCode <= 599) {
+    if (
+      statusCode.length > 0 &&
+      !isNaN(statusCode) &&
+      statusCode >= 200 &&
+      statusCode <= 599
+    ) {
       fetchCatImage(statusCode);
     } else {
-      catImageContainer.innerHTML = "Please enter a valid status code between 200 and 599";
+      catImageContainer.innerHTML =
+        "Please enter a valid status code between 200 and 599";
     }
   });
 
@@ -56,9 +66,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Event listener for handling Enter key press
   statusCodeInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
-      event.preventDefault();  // Prevent form submission
+      event.preventDefault(); // Prevent form submission
       const statusCode = statusCodeInput.value;
-      if (statusCode.length > 0 && !isNaN(statusCode) && statusCode >= 200 && statusCode <= 599) {
+      if (
+        statusCode.length > 0 &&
+        !isNaN(statusCode) &&
+        statusCode >= 200 &&
+        statusCode <= 599
+      ) {
         fetchCatImage(statusCode);
       }
     }
